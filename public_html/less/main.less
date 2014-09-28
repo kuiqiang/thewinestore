@@ -1,4 +1,5 @@
 /*! HTML5 Boilerplate v4.3.0 | MIT License | http://h5bp.com/ */
+
 html,
 button,
 input,
@@ -6,18 +7,22 @@ select,
 textarea {
   color: #222;
 }
+
 html {
   font-size: 1em;
   line-height: 1.4;
 }
+
 ::-moz-selection {
   background: #b3d4fc;
   text-shadow: none;
 }
+
 ::selection {
   background: #b3d4fc;
   text-shadow: none;
 }
+
 hr {
   display: block;
   height: 1px;
@@ -26,48 +31,64 @@ hr {
   margin: 1em 0;
   padding: 0;
 }
+
 audio,
 canvas,
 img,
 video {
   vertical-align: middle;
 }
+
 fieldset {
   border: 0;
   margin: 0;
   padding: 0;
 }
+
 textarea {
   resize: vertical;
 }
+
 .browsehappy {
   margin: 0.2em 0;
   background: #ccc;
   color: #000;
   padding: 0.2em 0;
 }
+
+
 /* ==========================================================================
    Author's custom styles
    ========================================================================== */
+@padding-8: 8px;
+@padding-15: 15px;
+@std-margin: 15px;
+@nav-bar-height: 75px;
+@std-border: 1px solid #E0E0E0;
+
 .scrollable {
   overflow-y: auto;
   height: 100%;
 }
+
 .shadow-1 {
   -webkit-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.258824);
   -moz-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.258824);
   box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.258824);
 }
+
 .shadow-2 {
-  -webkit-box-shadow: 0px 3px 6px -3px #000000;
-  -moz-box-shadow: 0px 3px 6px -3px #000000;
-  box-shadow: 0px 3px 6px -3px #000000;
+  -webkit-box-shadow: 0px 3px 6px -3px rgba(0,0,0,1);
+  -moz-box-shadow: 0px 3px 6px -3px rgba(0,0,0,1);
+  box-shadow: 0px 3px 6px -3px rgba(0,0,0,1);
 }
+
 .shadow-3 {
-  -webkit-box-shadow: 1px 0px 4px -3px rgba(0, 0, 0, 0.44);
-  -moz-box-shadow: 1px 0px 4px -3px rgba(0, 0, 0, 0.44);
-  box-shadow: 1px 0px 4px -3px rgba(0, 0, 0, 0.44);
+  -webkit-box-shadow: 1px 0px 4px -3px rgba(0,0,0,0.44);
+  -moz-box-shadow: 1px 0px 4px -3px rgba(0,0,0,0.44);
+  box-shadow: 1px 0px 4px -3px rgba(0,0,0,0.44);
 }
+
 .vertical-align {
   position: relative;
   top: 50%;
@@ -75,144 +96,164 @@ textarea {
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
 }
+
 @media screen and (max-width: 768px) {
+  @search-btn-height: 30px;
+  @search-btn-width: 40px;
+
   #xs-logo {
     margin: 0 auto;
     width: 100px;
     display: block;
   }
+
   #xs-logo-wrapper {
-    position: relative;
-    top: 50%;
-    -webkit-transform: translateY(-50%);
-    -ms-transform: translateY(-50%);
-    transform: translateY(-50%);
+    .vertical-align;
   }
+
   #search-btn {
     text-align: center;
-    width: 40px;
-    height: 30px;
-    margin-top: 31px;
+    width: @search-btn-width;
+    height: @search-btn-height;
+    margin-top: @search-btn-height + 1;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
-    -webkit-box-shadow: 0px 3px 6px -3px #000000;
-    -moz-box-shadow: 0px 3px 6px -3px #000000;
-    box-shadow: 0px 3px 6px -3px #000000;
+    .shadow-2;
   }
+
   #xs-search-form {
-    margin-top: 75px;
-    border-bottom: 1px solid #e0e0e0;
+    margin-top: @nav-bar-height;
+    border-bottom: @std-border;
     background-color: white;
-    padding-bottom: 30px;
-    padding-top: 60px;
+    padding-bottom: 2 * @padding-15;
+    padding-top: 2 * @search-btn-height;
     z-index: 1;
-    -webkit-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.258824);
-    -moz-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.258824);
-    box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.258824);
+    .shadow-1;
   }
+
   #search-results {
-    margin-top: 120px;
+    margin-top: @nav-bar-height + @search-btn-height + @std-margin;
   }
 }
+
 @media screen and (min-width: 768px) {
   #sm-logo {
     width: 200px;
     margin: 0 auto;
     display: block;
   }
+
   #sm-logo-container {
     text-align: center;
-    margin: 45px 0;
+    margin: 3 * @std-margin 0;
   }
+
   #sidebar {
-    border-right: 1px solid #e0e0e0;
+    border-right: @std-border;
     background-color: #FDFDFD;
     height: 100%;
     position: fixed;
     z-index: 1031;
     padding-left: 0;
     padding-right: 0;
-    -webkit-box-shadow: 1px 0px 4px -3px rgba(0, 0, 0, 0.44);
-    -moz-box-shadow: 1px 0px 4px -3px rgba(0, 0, 0, 0.44);
-    box-shadow: 1px 0px 4px -3px rgba(0, 0, 0, 0.44);
+    .shadow-3;
+
+    .scrollable {
+      padding: 0 @padding-15;
+    }
   }
-  #sidebar .scrollable {
-    padding: 0 15px;
-  }
+
   #search-results {
-    margin-top: 90px;
+    margin-top: @nav-bar-height + @std-margin;
   }
 }
+
 @media screen {
   nav {
-    border-bottom: 1px solid #e0e0e0;
-    height: 75px;
-    -webkit-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.258824);
-    -moz-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.258824);
-    box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.258824);
+    border-bottom: @std-border;
+    height: @nav-bar-height;
+    .shadow-1;
   }
+
   #match-count {
     white-space: nowrap;
-    position: relative;
-    top: 50%;
-    -webkit-transform: translateY(-50%);
-    -ms-transform: translateY(-50%);
-    transform: translateY(-50%);
+    .vertical-align;
   }
+
   #sort-by {
-    position: relative;
-    top: 50%;
-    -webkit-transform: translateY(-50%);
-    -ms-transform: translateY(-50%);
-    transform: translateY(-50%);
+    .vertical-align;
+
+    .form-group {
+      margin-bottom: 0;
+    }
+
+    label {
+      white-space: nowrap;
+    }
   }
-  #sort-by .form-group {
-    margin-bottom: 0;
-  }
-  #sort-by label {
-    white-space: nowrap;
-  }
+
   #sm-search-form label {
     white-space: pre-wrap;
   }
-  #search-results td {
-    border: 0;
+
+  #search-results {  
+    td {
+      border: 0;
+    }
+
+    tr:last-child td {
+      padding-bottom: 2 * @padding-15;
+    }
+
+    :first-child tr td {
+      padding-bottom: @padding-15;
+    }
   }
-  #search-results tr:last-child td {
-    padding-bottom: 30px;
-  }
-  #search-results :first-child tr td {
-    padding-bottom: 15px;
-  }
+
   #submit-search-btn {
-    margin-top: 15px;
-    -webkit-box-shadow: 0px 3px 6px -3px #000000;
-    -moz-box-shadow: 0px 3px 6px -3px #000000;
-    box-shadow: 0px 3px 6px -3px #000000;
+    margin-top: @std-margin;
+    .shadow-2;
   }
 }
+
 /* ==========================================================================
    Media Queries
    ========================================================================== */
+
+@media only screen and (min-width: 35em) {
+
+}
+
+@media print,
+(-o-min-device-pixel-ratio: 5/4),
+(-webkit-min-device-pixel-ratio: 1.25),
+(min-resolution: 120dpi) {
+
+}
+
 /* ==========================================================================
    Helper classes
    ========================================================================== */
+
 .ir {
   background-color: transparent;
   border: 0;
   overflow: hidden;
   *text-indent: -9999px;
 }
+
 .ir:before {
   content: "";
   display: block;
   width: 0;
   height: 150%;
 }
+
 .hidden {
   display: none !important;
   visibility: hidden;
 }
+
 .visuallyhidden {
   border: 0;
   clip: rect(0 0 0 0);
@@ -223,6 +264,7 @@ textarea {
   position: absolute;
   width: 1px;
 }
+
 .visuallyhidden.focusable:active,
 .visuallyhidden.focusable:focus {
   clip: auto;
@@ -232,23 +274,29 @@ textarea {
   position: static;
   width: auto;
 }
+
 .invisible {
   visibility: hidden;
 }
+
 .clearfix:before,
 .clearfix:after {
   content: " ";
   display: table;
 }
+
 .clearfix:after {
   clear: both;
 }
+
 .clearfix {
   *zoom: 1;
 }
+
 /* ==========================================================================
    Print styles
    ========================================================================== */
+
 @media print {
   * {
     background: transparent !important;
@@ -256,48 +304,58 @@ textarea {
     box-shadow: none !important;
     text-shadow: none !important;
   }
+
   a,
   a:visited {
     text-decoration: underline;
   }
+
   a[href]:after {
     content: " (" attr(href) ")";
   }
+
   abbr[title]:after {
     content: " (" attr(title) ")";
   }
+
   .ir a:after,
   a[href^="javascript:"]:after,
   a[href^="#"]:after {
     content: "";
   }
+
   pre,
   blockquote {
     border: 1px solid #999;
     page-break-inside: avoid;
   }
+
   thead {
     display: table-header-group;
   }
+
   tr,
   img {
     page-break-inside: avoid;
   }
+
   img {
     max-width: 100% !important;
   }
+
   @page {
     margin: 0.5cm;
   }
+
   p,
   h2,
   h3 {
     orphans: 3;
     widows: 3;
   }
+
   h2,
   h3 {
     page-break-after: avoid;
   }
 }
-/*# sourceMappingURL=main.css.map */
