@@ -49,10 +49,6 @@ textarea {
 /* ==========================================================================
    Author's custom styles
    ========================================================================== */
-.scrollable {
-  overflow-y: auto;
-  height: 100%;
-}
 .shadow-1 {
   -webkit-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.258824);
   -moz-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.258824);
@@ -63,140 +59,131 @@ textarea {
   -moz-box-shadow: 0px 3px 6px -3px #000000;
   box-shadow: 0px 3px 6px -3px #000000;
 }
-.shadow-3 {
-  -webkit-box-shadow: 1px 0px 4px -3px rgba(0, 0, 0, 0.44);
-  -moz-box-shadow: 1px 0px 4px -3px rgba(0, 0, 0, 0.44);
-  box-shadow: 1px 0px 4px -3px rgba(0, 0, 0, 0.44);
-}
-.vertical-align {
+.vertical-align-center {
   position: relative;
   top: 50%;
   -webkit-transform: translateY(-50%);
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
 }
+body {
+  overflow-y: scroll;
+}
+nav {
+  border-bottom: 1px solid #e0e0e0;
+  height: 97.5px;
+  -webkit-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.258824);
+  -moz-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.258824);
+  box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.258824);
+}
 @media screen and (max-width: 768px) {
-  #xs-logo {
-    margin: 0 auto;
-    width: 100px;
-    display: block;
-  }
-  #xs-logo-wrapper {
-    position: relative;
-    top: 50%;
-    -webkit-transform: translateY(-50%);
-    -ms-transform: translateY(-50%);
-    transform: translateY(-50%);
-  }
-  #search-btn {
-    text-align: center;
-    width: 40px;
-    height: 30px;
-    margin-top: 31px;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-    -webkit-box-shadow: 0px 3px 6px -3px #000000;
-    -moz-box-shadow: 0px 3px 6px -3px #000000;
-    box-shadow: 0px 3px 6px -3px #000000;
-  }
-  #xs-search-form {
-    margin-top: 75px;
-    border-bottom: 1px solid #e0e0e0;
-    background-color: white;
-    padding-bottom: 30px;
-    padding-top: 60px;
-    z-index: 1;
-    -webkit-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.258824);
-    -moz-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.258824);
-    box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.258824);
-  }
-  #search-results {
-    margin-top: 120px;
-  }
-}
-@media screen and (min-width: 768px) {
-  #sm-logo {
-    width: 200px;
-    margin: 0 auto;
-    display: block;
-  }
-  #sm-logo-container {
-    text-align: center;
-    margin: 45px 0;
-  }
-  #sidebar {
-    border-right: 1px solid #e0e0e0;
-    background-color: #FDFDFD;
-    height: 100%;
-    position: fixed;
-    z-index: 1031;
-    padding-left: 0;
-    padding-right: 0;
-    -webkit-box-shadow: 1px 0px 4px -3px rgba(0, 0, 0, 0.44);
-    -moz-box-shadow: 1px 0px 4px -3px rgba(0, 0, 0, 0.44);
-    box-shadow: 1px 0px 4px -3px rgba(0, 0, 0, 0.44);
-  }
-  #sidebar .scrollable {
-    padding: 0 15px;
-  }
-  #search-results {
-    margin-top: 90px;
-  }
-}
-@media screen {
   nav {
-    border-bottom: 1px solid #e0e0e0;
     height: 75px;
-    -webkit-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.258824);
-    -moz-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.258824);
-    box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.258824);
-  }
-  #match-count {
-    white-space: nowrap;
-    position: relative;
-    top: 50%;
-    -webkit-transform: translateY(-50%);
-    -ms-transform: translateY(-50%);
-    transform: translateY(-50%);
-  }
-  #sort-by {
-    position: relative;
-    top: 50%;
-    -webkit-transform: translateY(-50%);
-    -ms-transform: translateY(-50%);
-    transform: translateY(-50%);
-  }
-  #sort-by .form-group {
-    margin-bottom: 0;
-  }
-  #sort-by label {
-    white-space: nowrap;
-  }
-  #sm-search-form label {
-    white-space: pre-wrap;
-  }
-  #search-results td {
-    border: 0;
-  }
-  #search-results tr:last-child td {
-    padding-bottom: 30px;
-  }
-  #search-results :first-child tr td {
-    padding-bottom: 15px;
-  }
-  #submit-search-btn {
-    margin-top: 15px;
-    -webkit-box-shadow: 0px 3px 6px -3px #000000;
-    -moz-box-shadow: 0px 3px 6px -3px #000000;
-    box-shadow: 0px 3px 6px -3px #000000;
   }
 }
+#match-count {
+  white-space: nowrap;
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+#logo-image {
+  margin: 0 auto;
+  width: 80px;
+  display: block;
+}
+#logo-wrapper {
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  text-align: center;
+}
+.store-title {
+  text-align: center;
+  display: inline-block;
+  margin-bottom: -2px;
+}
+#sort-by {
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+#sort-by .form-group {
+  margin-bottom: 0;
+}
+#sort-by label {
+  white-space: nowrap;
+}
+#search-btn {
+  text-align: center;
+  width: 40px;
+  height: 30px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-top: 0;
+  margin-top: 98.5px;
+  -webkit-box-shadow: 0px 3px 6px -3px #000000;
+  -moz-box-shadow: 0px 3px 6px -3px #000000;
+  box-shadow: 0px 3px 6px -3px #000000;
+}
+@media screen and (max-width: 768px) {
+  #search-btn {
+    margin-top: 76px;
+  }
+}
+#search-form {
+  margin-top: 97.5px;
+  border-bottom: 1px solid #e0e0e0;
+  background-color: white;
+  padding-bottom: 30px;
+  padding-top: 60px;
+  display: none;
+  -webkit-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.258824);
+  -moz-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.258824);
+  box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.258824);
+}
+#search-form label {
+  white-space: pre-wrap;
+}
+#search-results {
+  margin-top: 112.5px;
+}
+#search-results td {
+  border: 0;
+  padding-left: 0;
+  padding-right: 0;
+}
+#search-results tr:last-child td {
+  padding-bottom: 30px;
+}
+#search-results tr td:last-child {
+  text-align: right;
+}
+#search-results tr td h2,
+#search-results tr td h3 {
+  text-align: left;
+}
+#search-results :first-child tr td {
+  padding-bottom: 15px;
+}
+#search-submit-btn {
+  margin-top: 15px;
+  -webkit-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.258824);
+  -moz-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.258824);
+  box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.258824);
+}
 /* ==========================================================================
-   Media Queries
-   ========================================================================== */
+Media Queries
+========================================================================== */
 /* ==========================================================================
-   Helper classes
-   ========================================================================== */
+Helper classes
+========================================================================== */
 .ir {
   background-color: transparent;
   border: 0;
@@ -247,8 +234,8 @@ textarea {
   *zoom: 1;
 }
 /* ==========================================================================
-   Print styles
-   ========================================================================== */
+Print styles
+========================================================================== */
 @media print {
   * {
     background: transparent !important;

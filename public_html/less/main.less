@@ -63,13 +63,11 @@ textarea {
 @padding-8: 8px;
 @padding-15: 15px;
 @std-margin: 15px;
-@nav-bar-height: 75px;
+@nav-bar-height: 97.5px;
+@nav-bar-height-xs: 75px;
 @std-border: 1px solid #E0E0E0;
-
-.scrollable {
-  overflow-y: auto;
-  height: 100%;
-}
+@search-btn-height: 30px;
+@search-btn-width: 40px;
 
 .shadow-1 {
   -webkit-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.258824);
@@ -83,13 +81,7 @@ textarea {
   box-shadow: 0px 3px 6px -3px rgba(0,0,0,1);
 }
 
-.shadow-3 {
-  -webkit-box-shadow: 1px 0px 4px -3px rgba(0,0,0,0.44);
-  -moz-box-shadow: 1px 0px 4px -3px rgba(0,0,0,0.44);
-  box-shadow: 1px 0px 4px -3px rgba(0,0,0,0.44);
-}
-
-.vertical-align {
+.vertical-align-center {
   position: relative;
   top: 50%;
   -webkit-transform: translateY(-50%);
@@ -97,128 +89,118 @@ textarea {
   transform: translateY(-50%);
 }
 
-@media screen and (max-width: 768px) {
-  @search-btn-height: 30px;
-  @search-btn-width: 40px;
+body {
+  overflow-y: scroll;
+}
 
-  #xs-logo {
-    margin: 0 auto;
-    width: 100px;
-    display: block;
-  }
+nav {
+  border-bottom: @std-border; 
+  height: @nav-bar-height;
+  .shadow-1;
 
-  #xs-logo-wrapper {
-    .vertical-align;
-  }
-
-  #search-btn {
-    text-align: center;
-    width: @search-btn-width;
-    height: @search-btn-height;
-    margin-top: @search-btn-height + 1;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-    .shadow-2;
-  }
-
-  #xs-search-form {
-    margin-top: @nav-bar-height;
-    border-bottom: @std-border;
-    background-color: white;
-    padding-bottom: 2 * @padding-15;
-    padding-top: 2 * @search-btn-height;
-    z-index: 1;
-    .shadow-1;
-  }
-
-  #search-results {
-    margin-top: @nav-bar-height + @search-btn-height + @std-margin;
+  @media screen and (max-width: 768px) {
+    height: @nav-bar-height-xs;
   }
 }
 
-@media screen and (min-width: 768px) {
-  #sm-logo {
-    width: 200px;
-    margin: 0 auto;
-    display: block;
-  }
-
-  #sm-logo-container {
-    text-align: center;
-    margin: 3 * @std-margin 0;
-  }
-
-  #sidebar {
-    border-right: @std-border;
-    background-color: #FDFDFD;
-    height: 100%;
-    position: fixed;
-    z-index: 1031;
-    padding-left: 0;
-    padding-right: 0;
-    .shadow-3;
-
-    .scrollable {
-      padding: 0 @padding-15;
-    }
-  }
-
-  #search-results {
-    margin-top: @nav-bar-height + @std-margin;
-  }
+#match-count {
+  white-space: nowrap;
+  .vertical-align-center;
 }
 
-@media screen {
-  nav {
-    border-bottom: @std-border;
-    height: @nav-bar-height;
-    .shadow-1;
+#logo-image {
+  margin: 0 auto;
+  width: 80px;
+  display: block;
+}
+
+#logo-wrapper {
+  .vertical-align-center;
+  text-align: center;
+}
+
+.store-title {
+  text-align: center;
+  display: inline-block;
+  margin-bottom: -2px;
+}
+
+#sort-by {
+  .vertical-align-center;
+
+  .form-group {
+    margin-bottom: 0;
   }
 
-  #match-count {
+  label {
     white-space: nowrap;
-    .vertical-align;
   }
+}
 
-  #sort-by {
-    .vertical-align;
+#search-btn {
+  text-align: center;
+  width: @search-btn-width;
+  height: @search-btn-height;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-top: 0;
+  margin-top: @nav-bar-height + 1;
+  .shadow-2;
 
-    .form-group {
-      margin-bottom: 0;
-    }
-
-    label {
-      white-space: nowrap;
-    }
+  @media screen and (max-width: 768px) {
+    margin-top: @nav-bar-height-xs + 1;
   }
+}  
 
-  #sm-search-form label {
+#search-form {
+  margin-top: @nav-bar-height;
+  border-bottom: @std-border;
+  background-color: white;
+  padding-bottom: 2 * @padding-15;
+  padding-top: 2 * @search-btn-height;
+  display: none;
+  .shadow-1;
+
+  label {
     white-space: pre-wrap;
   }
+}
 
-  #search-results {  
-    td {
-      border: 0;
-    }
+#search-results {  
+  margin-top: @nav-bar-height + @std-margin;
 
-    tr:last-child td {
-      padding-bottom: 2 * @padding-15;
-    }
-
-    :first-child tr td {
-      padding-bottom: @padding-15;
-    }
+  td {
+    border: 0;
+    padding-left: 0;
+    padding-right: 0;
   }
 
-  #submit-search-btn {
-    margin-top: @std-margin;
-    .shadow-2;
+  tr:last-child td {
+    padding-bottom: 2 * @padding-15;
   }
+
+  tr{ 
+    td:last-child {
+      text-align: right;
+    }
+
+    td h2, td h3 {
+      text-align: left;
+    }
+  }
+  :first-child tr td {
+    padding-bottom: @padding-15;
+  }
+}
+
+#search-submit-btn {
+  margin-top: @std-margin;
+  .shadow-1;
 }
 
 /* ==========================================================================
-   Media Queries
-   ========================================================================== */
+Media Queries
+========================================================================== */
 
 @media only screen and (min-width: 35em) {
 
@@ -232,8 +214,8 @@ textarea {
 }
 
 /* ==========================================================================
-   Helper classes
-   ========================================================================== */
+Helper classes
+========================================================================== */
 
 .ir {
   background-color: transparent;
@@ -294,8 +276,8 @@ textarea {
 }
 
 /* ==========================================================================
-   Print styles
-   ========================================================================== */
+Print styles
+========================================================================== */
 
 @media print {
   * {
