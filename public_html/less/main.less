@@ -137,6 +137,10 @@ nav {
   }
 }
 
+#search-btn-wrapper {
+  z-index: 1029;
+}
+
 #search-btn {
   text-align: center;
   width: @search-btn-width;
@@ -146,6 +150,10 @@ nav {
   border-top: 0;
   margin-top: @nav-bar-height + 1;
   .shadow-2;
+
+  span {
+    vertical-align: middle;
+  }
 
   @media screen and (max-width: 768px) {
     margin-top: @nav-bar-height-xs + 1;
@@ -161,8 +169,21 @@ nav {
   display: none;
   .shadow-1;
 
-  label {
-    white-space: pre-wrap;
+  h4 {
+    white-space: normal;
+  }
+
+  .help-block {
+    display: none;
+    font-size: 0.9em;
+  }
+
+  .has-error .help-block {
+    display: inline;
+  }
+  
+  @media screen and (max-width: 768px) {
+    margin-top: @nav-bar-height-xs;
   }
 }
 
@@ -197,6 +218,10 @@ nav {
   margin-top: @std-margin;
   .shadow-1;
 }
+
+/* ==========================================================================
+AngularJS
+========================================================================== */
 
 /* ==========================================================================
 Media Queries

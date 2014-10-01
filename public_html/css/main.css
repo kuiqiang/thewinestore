@@ -120,6 +120,9 @@ nav {
 #sort-by label {
   white-space: nowrap;
 }
+#search-btn-wrapper {
+  z-index: 1029;
+}
 #search-btn {
   text-align: center;
   width: 40px;
@@ -131,6 +134,9 @@ nav {
   -webkit-box-shadow: 0px 3px 6px -3px #000000;
   -moz-box-shadow: 0px 3px 6px -3px #000000;
   box-shadow: 0px 3px 6px -3px #000000;
+}
+#search-btn span {
+  vertical-align: middle;
 }
 @media screen and (max-width: 768px) {
   #search-btn {
@@ -148,8 +154,20 @@ nav {
   -moz-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.258824);
   box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.258824);
 }
-#search-form label {
-  white-space: pre-wrap;
+#search-form h4 {
+  white-space: normal;
+}
+#search-form .help-block {
+  display: none;
+  font-size: 0.9em;
+}
+#search-form .has-error .help-block {
+  display: inline;
+}
+@media screen and (max-width: 768px) {
+  #search-form {
+    margin-top: 75px;
+  }
 }
 #search-results {
   margin-top: 112.5px;
@@ -178,6 +196,9 @@ nav {
   -moz-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.258824);
   box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.258824);
 }
+/* ==========================================================================
+AngularJS
+========================================================================== */
 /* ==========================================================================
 Media Queries
 ========================================================================== */

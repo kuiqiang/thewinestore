@@ -26,7 +26,7 @@
       <div class="container-fluid" ng-controller="AppController">
 
         <div class="row">
-          
+
           <main class="col-xs-12">
 
             <!--fixed-navbar-->
@@ -53,10 +53,10 @@
                   </div>
                 </div>
               </form>
-            </nav>  
+            </nav>
 
             <!--search-btn-->
-            <div class="navbar-fixed-top">
+            <div id="search-btn-wrapper" class="navbar-fixed-top">
               <div class="col-xs-12">
                 <div id="search-btn" class="btn btn-sm btn-danger center-block" ng-click="toggleSearchForm()">
                   <span class="glyphicon glyphicon-search"></span>
@@ -66,42 +66,60 @@
 
             <!--search-form-->
             <div id="search-form" class="row">
-              <form class="col-xs-10 col-xs-offset-1">
-                <div class="form-group col-xs-12">
-                  <label for="wine-name">Wine Name</label>
-                  <input type="text" class="form-control" id="wine-name" placeholder="Enter wine name" ng-model="search.wineName">
+              <form name="searchForm" class="col-xs-10 col-xs-offset-1" novalidate>
+                <div class="row">
+                  <div class="form-group col-xs-12" show-errors="{showSuccess: true}">
+                    <label class="control-label">Wine Name</label>
+                    <input type="text" class="form-control" name="wineName" placeholder="Enter wine name" ng-model="search.wineName">
+                  </div>
                 </div>
-                <div class="form-group col-xs-12">
-                  <label for="region">Region</label>
-                  <input type="text" class="form-control" id="region" placeholder="Enter region" ng-model="search.region">
+                <div class="row">
+                  <div class="form-group col-xs-12" show-errors="{showSuccess: true}">
+                    <label class="control-label">Region</label>
+                    <input type="text" class="form-control" name="region" placeholder="Enter region" ng-model="search.region">
+                  </div>
                 </div>
-                <div class="form-group col-xs-12">
-                  <label for="winery-name">Winery Name</label>
-                  <input type="text" class="form-control" id="winery-name" placeholder="Enter winery name" ng-model="search.wineryName">
+                <div class="row">
+                  <div class="form-group col-xs-12" show-errors="{showSuccess: true}">
+                    <label class="control-label">Winery Name</label>
+                    <input type="text" class="form-control" name="wineryName" placeholder="Enter winery name" ng-model="search.wineryName">
+                  </div>
                 </div>
-                <div class="form-group col-xs-6">
-                  <label for="min-years">Min. years</label>
-                  <input type="number" class="form-control" id="min-years" placeholder="Enter min. years" min="0"ng-model="search.minYears">
+                <div class="row">
+                  <div class="form-group col-xs-6" show-errors="{showSuccess: true}">
+                    <label class="control-label">Min. years</label>
+                    <input type="number" class="form-control" name="minYears" placeholder="Enter min. years" min="0"ng-model="search.minYears">
+                    <h4><span class="help-block" ng-if="searchForm.minYears.$error.number">Please enter a valid number</span></h4>
+                  </div>
+                  <div class="form-group col-xs-6" show-errors="{showSuccess: true}">
+                    <label class="control-label" >Max. years</label>
+                    <input type="number" class="form-control" name="maxYears" placeholder="Enter max. years" min="0" ng-model="search.maxYears">
+                    <h4><span class="help-block" ng-if="searchForm.maxYears.$error.number">Please enter a valid number</span></h4>
+                  </div> 
                 </div>
-                <div class="form-group col-xs-6">
-                  <label for="max-years">Max. years</label>
-                  <input type="number" class="form-control" id="max-years" placeholder="Enter max. years" min="0" ng-model="search.maxYears">
-                </div> 
-                <div class="form-group col-xs-6">
-                  <label for="min-cost">Min. cost</label>
-                  <input type="number" class="form-control" id="min-cost" placeholder="Enter min. cost" min="0" ng-model="search.minCost">
+                <div class="row">
+                  <div class="form-group col-xs-6" show-errors="{showSuccess: true}">
+                    <label class="control-label">Min. cost</label>
+                    <input type="number" class="form-control" name="minCost" placeholder="Enter min. cost" min="0" ng-model="search.minCost">
+                    <h4><span class="help-block" ng-if="searchForm.minCost.$error.number">Please enter a valid number</span></h4>
+                  </div>
+                  <div class="form-group col-xs-6" show-errors="{showSuccess: true}">
+                    <label class="control-label">Max. cost</label>
+                    <input type="number" class="form-control" name="maxCost" placeholder="Enter max. cost" min="0" ng-model="search.maxCost">
+                    <h4><span class="help-block" ng-if="searchForm.maxCost.$error.number">Please enter a valid number</span></h4>
+                  </div>
                 </div>
-                <div class="form-group col-xs-6">
-                  <label for="max-cost">Max. cost</label>
-                  <input type="number" class="form-control" id="max-cost" placeholder="Enter max. cost" min="0" ng-bind="search.maxCost" ng-model="search.maxCost">
-                </div>
-                <div class="form-group col-xs-6">
-                  <label for="min-in-stock">Min. in stock</label>
-                  <input type="number" class="form-control" id="min-in-stock" placeholder="Enter min. in stock" min="0" ng-bind="search.minInStock" ng-model="search.minInStock">
-                </div>
-                <div class="form-group col-xs-6">
-                  <label for="min-purchases">Min. purchases</label>
-                  <input type="number" class="form-control" id="min-purchases" placeholder="Enter min. purchases" min="0" ng-bind="search.minPurchases" ng-model="search.minPurchases">
+                <div class="row">
+                  <div class="form-group col-xs-6" show-errors="{showSuccess: true}">
+                    <label class="control-label">Min. in stock</label>
+                    <input type="number" class="form-control" name="minInStock" placeholder="Enter min. in stock" min="0" ng-model="search.minInStock">
+                    <h4><span class="help-block" ng-if="searchForm.minInStock.$error.number">Please enter a valid number</span></h4>
+                  </div>
+                  <div class="form-group col-xs-6" show-errors="{showSuccess: true}">
+                    <label class="control-label">Min. purchases</label>
+                    <input type="number" class="form-control" name="minPurchases" placeholder="Enter min. purchases" min="0" ng-model="search.minPurchases">
+                    <h4><span class="help-block" ng-if="searchForm.minPurchases.$error.number">Please enter a valid number</span></h4>
+                  </div>
                 </div>
                 <div class="form-group col-xs-12">
                   <button id="search-submit-btn" type="submit" class="btn btn-danger btn-lg text-uppercase pull-right"><strong>Search</strong></button>
@@ -165,7 +183,7 @@
       <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
       <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.1.min.js"><\/script>')</script>
       <script src="js/vendor/angular.js/angular.min.js"></script>
-      <script src="js/vendor/angular.js/angular-animate.min.js"></script>
+      <script src="js/vendor/angular.js/ui-bootstrap-tpls-0.11.2.min.js"></script>
 
       <script src="js/main.js"></script>
 
