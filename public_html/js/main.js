@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  var wineStoreApp = angular.module('wineStoreApp', ['ui.bootstrap']);
+  var wineStoreApp = angular.module('wineStoreApp', []);
 
   wineStoreApp.controller('AppController', function ($scope) {
     $scope.searchFormIsShown = false;
@@ -9,14 +9,12 @@
     $scope.toggleSearchForm = function () {
       $scope.searchFormIsShown = !$scope.searchFormIsShown;
       if ($scope.searchFormIsShown) {
-        $("#search-form").slideDown('600');
+        $("#search-form").slideDown('fast');
       }
       else {
-        $("#search-form").slideUp('600');
+        $("#search-form").slideUp('fast');
       }
     };
-
-    $scope.templates = {};
 
     $scope.search = {
       wineName: "",
@@ -29,12 +27,40 @@
       minInStock: "",
       minPurchases: ""
     };
+  });
 
-    $scope.save = function () {
-      $scope.$broadcast('show-errors-check-validity');
+  wineStoreApp.directive('myLesserThanOrEquals', function () {
+    return {
+      require: 'ngModel',
+      link: function (scope, elm, attrs, c) {
+        scope.$watch(attrs.ngModel, function () {
+          var thatVal = parseInt(scope.searchForm[attrs.myLesserThanOrEquals].$viewValue),
+                  thisVal = parseInt(c.$viewValue);
 
-      if ($scope.userForm.$valid) {
-        //Do Something
+          if (isNaN(thisVal) || isNaN(thatVal))
+            return;
+
+          c.$setValidity('myLesserThanOrEquals', thisVal <= thatVal);
+          scope.searchForm[attrs.myLesserThanOrEquals].$setValidity('myGreaterThanOrEquals', thisVal <= thatVal);
+        });
+      }
+    };
+  });
+
+  wineStoreApp.directive('myGreaterThanOrEquals', function () {
+    return {
+      require: 'ngModel',
+      link: function (scope, elm, attrs, c) {
+        scope.$watch(attrs.ngModel, function () {
+          var thatVal = parseInt(scope.searchForm[attrs.myGreaterThanOrEquals].$viewValue),
+                  thisVal = parseInt(c.$viewValue);
+
+          if (isNaN(thisVal) || isNaN(thatVal))
+            return;
+
+          c.$setValidity('myGreaterThanOrEquals', thisVal >= thatVal);
+          scope.searchForm[attrs.myGreaterThanOrEquals].$setValidity('myLesserThanOrEquals', thisVal >= thatVal);
+        });
       }
     };
   });
@@ -105,6 +131,7 @@
     };
     this.$get = function () {
       return {showSuccess: _showSuccess};
-    };
+    }
+    ;
   });
 })();

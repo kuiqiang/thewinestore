@@ -3,11 +3,11 @@
 
 # TEAM
 
-    <name> -- <role> -- <twitter>
+    <Cheng Kui Qiang> -- <Chef> -- <@kuiqiang>
 
 # THANKS
 
-    <name>
+    <Cheng Kui Qiang>
 
 # TECHNOLOGY COLOPHON
 
