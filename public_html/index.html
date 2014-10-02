@@ -13,7 +13,7 @@
 
       <link rel="stylesheet" href="css/normalize.min.css">
       <link rel="stylesheet" href="css/main.css">
-      <link rel="stylesheet" href="js/vendor/twitter-bootstrap/css/bootstrap.min.css">
+      <link rel="stylesheet" href="css/bootstrap.min.css">
       <link href='http://fonts.googleapis.com/css?family=IM+Fell+DW+Pica' rel='stylesheet' type='text/css'>
 
       <script src="js/vendor/modernizr-2.6.2.min.js"></script>
@@ -88,25 +88,33 @@
                 <div class="row">
                   <div class="form-group col-xs-6" show-errors="{showSuccess: true}">
                     <label class="control-label">Min. years</label>
-                    <input type="number" class="form-control" name="minYears" placeholder="Enter min. years" min="0"ng-model="search.minYears">
+                    <input type="number" class="form-control" name="minYears" placeholder="Enter min. years" min="0" my-lesser-than-or-equals="maxYears" ng-model="search.minYears">
                     <h4><span class="help-block" ng-if="searchForm.minYears.$error.number">Please enter a valid number</span></h4>
+                    <h4><span class="help-block" ng-if="searchForm.minYears.$error.min">Min. years must be greater than zero</span></h4>
+                    <h4><span class="help-block" ng-if="searchForm.minYears.$error.myLesserThanOrEquals">Min. years must be lesser than max. years</span></h4>
                   </div>
                   <div class="form-group col-xs-6" show-errors="{showSuccess: true}">
                     <label class="control-label" >Max. years</label>
-                    <input type="number" class="form-control" name="maxYears" placeholder="Enter max. years" min="0" ng-model="search.maxYears">
+                    <input type="number" class="form-control" name="maxYears" placeholder="Enter max. years" min="0" my-greater-than-or-equals="minYears" ng-model="search.maxYears">
                     <h4><span class="help-block" ng-if="searchForm.maxYears.$error.number">Please enter a valid number</span></h4>
+                    <h4><span class="help-block" ng-if="searchForm.maxYears.$error.min">Max. years must be greater than zero</span></h4>
+                    <h4><span class="help-block" ng-if="searchForm.maxYears.$error.myGreaterThanOrEquals">Max. years must be greater than min. years</span></h4>
                   </div> 
                 </div>
                 <div class="row">
                   <div class="form-group col-xs-6" show-errors="{showSuccess: true}">
                     <label class="control-label">Min. cost</label>
-                    <input type="number" class="form-control" name="minCost" placeholder="Enter min. cost" min="0" ng-model="search.minCost">
+                    <input type="number" class="form-control" name="minCost" placeholder="Enter min. cost" min="0" my-lesser-than-or-equals="maxCost" ng-model="search.minCost">
                     <h4><span class="help-block" ng-if="searchForm.minCost.$error.number">Please enter a valid number</span></h4>
+                    <h4><span class="help-block" ng-if="searchForm.minCost.$error.min">Min. cost must be greater than zero</span></h4>
+                    <h4><span class="help-block" ng-if="searchForm.minCost.$error.myLesserThanOrEquals">Min. cost must be lesser than max. cost</span></h4>
                   </div>
                   <div class="form-group col-xs-6" show-errors="{showSuccess: true}">
                     <label class="control-label">Max. cost</label>
-                    <input type="number" class="form-control" name="maxCost" placeholder="Enter max. cost" min="0" ng-model="search.maxCost">
+                    <input type="number" class="form-control" name="maxCost" placeholder="Enter max. cost" min="0" my-greater-than-or-equals="minCost" ng-model="search.maxCost">
                     <h4><span class="help-block" ng-if="searchForm.maxCost.$error.number">Please enter a valid number</span></h4>
+                    <h4><span class="help-block" ng-if="searchForm.maxCost.$error.min">Max. cost must be greater than zero</span></h4>
+                    <h4><span class="help-block" ng-if="searchForm.maxCost.$error.myGreaterThanOrEquals">Max. cost must be greater than min. cost</span></h4>
                   </div>
                 </div>
                 <div class="row">
@@ -114,15 +122,17 @@
                     <label class="control-label">Min. in stock</label>
                     <input type="number" class="form-control" name="minInStock" placeholder="Enter min. in stock" min="0" ng-model="search.minInStock">
                     <h4><span class="help-block" ng-if="searchForm.minInStock.$error.number">Please enter a valid number</span></h4>
+                    <h4><span class="help-block" ng-if="searchForm.minInStock.$error.min">Min. in stock must be greater than zero</span></h4>
                   </div>
                   <div class="form-group col-xs-6" show-errors="{showSuccess: true}">
                     <label class="control-label">Min. purchases</label>
                     <input type="number" class="form-control" name="minPurchases" placeholder="Enter min. purchases" min="0" ng-model="search.minPurchases">
                     <h4><span class="help-block" ng-if="searchForm.minPurchases.$error.number">Please enter a valid number</span></h4>
+                    <h4><span class="help-block" ng-if="searchForm.minPurchases.$error.min">Min. purchases must be greater than zero</span></h4>
                   </div>
                 </div>
                 <div class="form-group col-xs-12">
-                  <button id="search-submit-btn" type="submit" class="btn btn-danger btn-lg text-uppercase pull-right"><strong>Search</strong></button>
+                  <button id="search-submit-btn" type="submit" class="btn btn-danger btn-lg text-uppercase pull-right" ng-disabled="searchForm.$invalid"><strong>Search</strong></button>
                 </div>                 
               </form>
             </div>
@@ -182,8 +192,7 @@
 
       <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
       <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.1.min.js"><\/script>')</script>
-      <script src="js/vendor/angular.js/angular.min.js"></script>
-      <script src="js/vendor/angular.js/ui-bootstrap-tpls-0.11.2.min.js"></script>
+      <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
 
       <script src="js/main.js"></script>
 
