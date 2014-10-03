@@ -9,10 +9,10 @@
     $scope.toggleSearchForm = function () {
       $scope.searchFormIsShown = !$scope.searchFormIsShown;
       if ($scope.searchFormIsShown) {
-        $("#search-form").slideDown('fast');
+        $("#search-form").slideDown('500');
       }
       else {
-        $("#search-form").slideUp('fast');
+        $("#search-form").slideUp('500');
       }
     };
 
