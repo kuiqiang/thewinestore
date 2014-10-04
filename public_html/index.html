@@ -32,7 +32,7 @@
             <!--fixed-navbar-->
             <nav class="navbar navbar-default navbar-fixed-top">
               <!--match-count-->
-              <div class="col-xs-3 text-capitalize" id="match-count">6 matches</div>
+              <div class="col-xs-3 text-capitalize" id="match-count">{{matchCount}} matches</div>
 
               <!--logo-->
               <div id="logo-wrapper" class="col-xs-6">
@@ -45,11 +45,7 @@
                 <div class="form-group">
                   <label for="sort-by-select" class="control-label col-sm-5 hidden-xs">Sort by</label>
                   <div class="col-sm-7">
-                    <select id="sort-by-select" class="form-control">
-                      <option>Wine name</option>
-                      <option>Wine varieties</option>
-                      <option>Year</option>
-                    </select>
+                    <select id="sort-by-select" class="form-control" ng-model="currentSortOption" ng-options="sortOption.name for sortOption in sortOptions"></select>
                   </div>
                 </div>
               </form>
@@ -65,7 +61,7 @@
             </div>
 
             <!--search-form-->
-            <div id="search-form" class="row">
+            <div id="search-form" class="row" ng-controller="SearchFormController">
               <form name="searchForm" class="col-xs-10 col-xs-offset-1" novalidate>
                 <div class="row">
                   <div class="form-group col-xs-12" show-errors="{showSuccess: true}">
@@ -74,9 +70,11 @@
                   </div>
                 </div>
                 <div class="row">
-                  <div class="form-group col-xs-12" show-errors="{showSuccess: true}">
+                  <div class="form-group col-xs-12">
                     <label class="control-label">Region</label>
-                    <input type="text" class="form-control" name="region" placeholder="Enter region" ng-model="search.region">
+                    <select id="regions" class="form-control" name="region" ng-model="search.regionName">
+                      <option ng-repeat="region in regions">{{region.regionName}}</option>
+                    </select>
                   </div>
                 </div>
                 <div class="row">
@@ -87,34 +85,36 @@
                 </div>
                 <div class="row">
                   <div class="form-group col-xs-6" show-errors="{showSuccess: true}">
-                    <label class="control-label">Min. years</label>
-                    <input type="number" class="form-control" name="minYears" placeholder="Enter min. years" min="0" my-lesser-than-or-equals="maxYears" ng-model="search.minYears">
-                    <h4><span class="help-block" ng-if="searchForm.minYears.$error.number">Please enter a valid number</span></h4>
-                    <h4><span class="help-block" ng-if="searchForm.minYears.$error.min">Min. years must be greater than zero</span></h4>
-                    <h4><span class="help-block" ng-if="searchForm.minYears.$error.myLesserThanOrEquals">Min. years must be lesser than max. years</span></h4>
+                    <label class="control-label">Starting year</label>
+                    <input type="number" class="form-control" name="startingYear" placeholder="Enter starting year" min="1970" max="2014" my-lesser-than-or-equals="endingYear" ng-model="search.startingYear">
+                    <h4><span class="help-block" ng-if="searchForm.startingYear.$error.number">Please enter a valid year</span></h4>
+                    <h4><span class="help-block" ng-if="searchForm.startingYear.$error.min">Starting year must start from 1970</span></h4>
+                    <h4><span class="help-block" ng-if="searchForm.startingYear.$error.max">Starting year must be lesser than {{thisYear}}</span></h4>
+                    <h4><span class="help-block" ng-if="searchForm.startingYear.$error.myLesserThanOrEquals">Starting year must be lesser than ending year</span></h4>
                   </div>
                   <div class="form-group col-xs-6" show-errors="{showSuccess: true}">
-                    <label class="control-label" >Max. years</label>
-                    <input type="number" class="form-control" name="maxYears" placeholder="Enter max. years" min="0" my-greater-than-or-equals="minYears" ng-model="search.maxYears">
-                    <h4><span class="help-block" ng-if="searchForm.maxYears.$error.number">Please enter a valid number</span></h4>
-                    <h4><span class="help-block" ng-if="searchForm.maxYears.$error.min">Max. years must be greater than zero</span></h4>
-                    <h4><span class="help-block" ng-if="searchForm.maxYears.$error.myGreaterThanOrEquals">Max. years must be greater than min. years</span></h4>
+                    <label class="control-label">Ending year</label>
+                    <input type="number" class="form-control" name="endingYear" placeholder="Enter ending year" min="1970" max="{{thisYear}}" my-greater-than-or-equals="startingYear" ng-model="search.endingYear">
+                    <h4><span class="help-block" ng-if="searchForm.endingYear.$error.number">Please enter a valid number</span></h4>
+                    <h4><span class="help-block" ng-if="searchForm.endingYear.$error.min">Ending year must start from 1970</span></h4>
+                    <h4><span class="help-block" ng-if="searchForm.endingYear.$error.max">Ending year must be lesser than {{thisYear}}</span></h4>
+                    <h4><span class="help-block" ng-if="searchForm.endingYear.$error.myGreaterThanOrEquals">Ending year must be greater than starting year</span></h4>
                   </div> 
                 </div>
                 <div class="row">
                   <div class="form-group col-xs-6" show-errors="{showSuccess: true}">
-                    <label class="control-label">Min. cost</label>
-                    <input type="number" class="form-control" name="minCost" placeholder="Enter min. cost" min="0" my-lesser-than-or-equals="maxCost" ng-model="search.minCost">
+                    <label class="control-label">Min. price</label>
+                    <input type="number" class="form-control" name="minCost" placeholder="Enter min. price" min="0" my-lesser-than-or-equals="maxCost" ng-model="search.minCost">
                     <h4><span class="help-block" ng-if="searchForm.minCost.$error.number">Please enter a valid number</span></h4>
-                    <h4><span class="help-block" ng-if="searchForm.minCost.$error.min">Min. cost must be greater than zero</span></h4>
-                    <h4><span class="help-block" ng-if="searchForm.minCost.$error.myLesserThanOrEquals">Min. cost must be lesser than max. cost</span></h4>
+                    <h4><span class="help-block" ng-if="searchForm.minCost.$error.min">Min. price must be greater than zero</span></h4>
+                    <h4><span class="help-block" ng-if="searchForm.minCost.$error.myLesserThanOrEquals">Min. price must be lesser than max. price</span></h4>
                   </div>
                   <div class="form-group col-xs-6" show-errors="{showSuccess: true}">
-                    <label class="control-label">Max. cost</label>
-                    <input type="number" class="form-control" name="maxCost" placeholder="Enter max. cost" min="0" my-greater-than-or-equals="minCost" ng-model="search.maxCost">
+                    <label class="control-label">Max. price</label>
+                    <input type="number" class="form-control" name="maxCost" placeholder="Enter max. price" min="0" my-greater-than-or-equals="minCost" ng-model="search.maxCost">
                     <h4><span class="help-block" ng-if="searchForm.maxCost.$error.number">Please enter a valid number</span></h4>
-                    <h4><span class="help-block" ng-if="searchForm.maxCost.$error.min">Max. cost must be greater than zero</span></h4>
-                    <h4><span class="help-block" ng-if="searchForm.maxCost.$error.myGreaterThanOrEquals">Max. cost must be greater than min. cost</span></h4>
+                    <h4><span class="help-block" ng-if="searchForm.maxCost.$error.min">Max. price must be greater than zero</span></h4>
+                    <h4><span class="help-block" ng-if="searchForm.maxCost.$error.myGreaterThanOrEquals">Max. price must be greater than min. price</span></h4>
                   </div>
                 </div>
                 <div class="row">
@@ -132,13 +132,14 @@
                   </div>
                 </div>
                 <div class="form-group col-xs-12">
-                  <button id="search-submit-btn" type="submit" class="btn btn-danger btn-lg text-uppercase pull-right" ng-disabled="searchForm.$invalid"><strong>Search</strong></button>
+                  <button id="search-submit-btn" type="submit" class="btn btn-danger btn-lg text-uppercase pull-right" ng-disabled="searchForm.$invalid" ng-click="getWines();
+                            toggleSearchForm()"><strong>Search</strong></button>
                 </div>                 
               </form>
             </div>
 
             <!--search-results-->
-            <div class="row" ng-hide="searchFormIsShown">
+            <div class="row" ng-hide="searchFormIsShown || !(searchPerformed && matchCount !== 0)">
               <div class="col-xs-10 col-xs-offset-1">
                 <table id="search-results" class="table">
                   <tbody>
@@ -146,44 +147,49 @@
                       <td colspan="2"><h2>Search results</h2></td>
                     </tr>
                   </tbody>
-                  <tbody>
+                  <tbody class="dot-separated" ng-repeat="wine in wines| orderBy:currentSortOption.option">
                     <tr>
-                      <td colspan="2"><h3>Wine 1</h3></td>
-                    </tr>
+                      <td colspan="2"><h3>{{wine.wineName}}<small> | {{$index + 1}}</small></h3></td>
                     <tr>
                       <td>Varieties</td>
-                      <td>XXX</td>
+                      <td>{{wine.varieties}}</td>
                     </tr>
                     <tr>
-                      <td>Years</td>
-                      <td>XXX</td>
+                      <td>Year</td>
+                      <td>{{wine.year}}</td>
                     </tr>
                     <tr>
                       <td>Winery</td>
-                      <td>XXX</td>
+                      <td>{{wine.winery}}</td>
                     </tr>
                     <tr>
-                      <td>Regions</td>
-                      <td>XXX</td>
+                      <td>Region</td>
+                      <td>{{wine.region}}</td>
                     </tr>
                     <tr>
-                      <td>Min. cost</td>
-                      <td>XXX</td>
+                      <td>Price</td>
+                      <td>{{wine.price| currency: '$'}}</td>
                     </tr>
                     <tr>
-                      <td>Bottles available at min. cost</td>
-                      <td>XXX</td>
-                    </tr>
-                    <tr>
-                      <td>Total available</td>
-                      <td>XXX</td>
+                      <td>In stock</td>
+                      <td>{{wine.inStock}}</td>
                     </tr>
                     <tr>
                       <td>No. of purchases</td>
-                      <td>XXX</td>
+                      <td>{{wine.numberOfPurchases}}</td>
                     </tr>
                   </tbody>
                 </table> 
+              </div>
+            </div>
+
+            <!--search--messages-->
+            <div id="search-messages" class="row text-uppercase" ng-hide="searchFormIsShown">
+              <div class="col-xs-12" ng-show="searchPerformed && matchCount === 0">
+                <h1><small>Oops! No matches were found...<br><span class="glyphicon glyphicon-exclamation-sign"></span></small></h1>
+              </div>
+              <div class="col-xs-12" ng-hide="searchPerformed">
+                <h1><small>Start searching!<br><span class="glyphicon glyphicon-search"></span></small></h1>
               </div>
             </div>
           </main>
@@ -198,20 +204,20 @@
 
       <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
       <script>
-              (function (b, o, i, l, e, r) {
-                b.GoogleAnalyticsObject = l;
-                b[l] || (b[l] =
-                        function () {
-                          (b[l].q = b[l].q || []).push(arguments)
-                        });
-                b[l].l = +new Date;
-                e = o.createElement(i);
-                r = o.getElementsByTagName(i)[0];
-                e.src = '//www.google-analytics.com/analytics.js';
-                r.parentNode.insertBefore(e, r)
-              }(window, document, 'script', 'ga'));
-              ga('create', 'UA-XXXXX-X');
-              ga('send', 'pageview');
+                (function (b, o, i, l, e, r) {
+                  b.GoogleAnalyticsObject = l;
+                  b[l] || (b[l] =
+                          function () {
+                            (b[l].q = b[l].q || []).push(arguments)
+                          });
+                  b[l].l = +new Date;
+                  e = o.createElement(i);
+                  r = o.getElementsByTagName(i)[0];
+                  e.src = '//www.google-analytics.com/analytics.js';
+                  r.parentNode.insertBefore(e, r)
+                }(window, document, 'script', 'ga'));
+                ga('create', 'UA-XXXXX-X');
+                ga('send', 'pageview');
       </script>
     </body>
   </html>

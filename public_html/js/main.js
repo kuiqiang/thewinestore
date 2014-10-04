@@ -3,30 +3,72 @@
 (function () {
   var wineStoreApp = angular.module('wineStoreApp', []);
 
-  wineStoreApp.controller('AppController', function ($scope) {
+  wineStoreApp.controller('AppController', function ($scope, $http, $filter) {
+    /* Search form */
     $scope.searchFormIsShown = false;
-
-    $scope.toggleSearchForm = function () {
-      $scope.searchFormIsShown = !$scope.searchFormIsShown;
-      if ($scope.searchFormIsShown) {
-        $("#search-form").slideDown('500');
-      }
-      else {
-        $("#search-form").slideUp('500');
-      }
-    };
-
+    $scope.searchPerformed = false;
+    $scope.regions;
     $scope.search = {
       wineName: "",
-      region: "",
+      regionName: "",
       wineryName: "",
-      minYears: "",
-      maxYears: "",
+      startingYear: "",
+      endingYear: "",
       minCost: "",
       maxCost: "",
       minInStock: "",
       minPurchases: ""
     };
+
+    $scope.toggleSearchForm = function () {
+      $scope.searchFormIsShown = !$scope.searchFormIsShown;
+      if ($scope.searchFormIsShown)
+        $("#search-form").slideDown('600');
+      else
+        $("#search-form").slideUp('600');
+    };
+
+    $scope.getRegions = function () {
+      $http.get('/assignment-1/public_html/php/getRegions.php').success(function (regions) {
+        $scope.regions = regions;
+      }).error(function (regions, status) {
+        console.log(status);
+      });
+    };
+
+    $scope.getRegions();
+
+    /* Results */
+    $scope.wines = {};
+    $scope.matchCount = 0;
+
+    $scope.getWines = function () {
+      $http.get('/assignment-1/public_html/php/getWines.php', {params: $scope.search}).success(function (wines) {
+        $scope.wines = wines;
+        $scope.searchPerformed = true;
+        if (typeof $scope.wines === "object")
+          $scope.matchCount = Object.keys($scope.wines).length;
+      }).error(function (wines, status) {
+        console.log(status);
+      });
+    };
+
+    /* Sorting */
+    $scope.sortOptions = [
+      {option: "wineName", name: "Wine name"},
+      {option: "varieties", name: "Varieties"},
+      {option: "year", name: "Year"},
+      {option: "winery", name: "Winery"},
+      {option: "region", name: "Region"},
+      {option: "price", name: "Price"},
+      {option: "inStock", name: "In stock"},
+      {option: "numberOfPurchases", name: "No. of purchases"}
+    ];
+    $scope.currentSortOption = $scope.sortOptions[0];
+  });
+
+  wineStoreApp.controller('SearchFormController', function ($scope) {
+    $scope.thisYear = new Date().getFullYear();
   });
 
   wineStoreApp.directive('myLesserThanOrEquals', function () {
