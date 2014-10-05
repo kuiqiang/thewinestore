@@ -166,7 +166,6 @@ nav {
   background-color: white;
   padding-bottom: 2 * @padding-15;
   padding-top: 2 * @search-btn-height;
-  display: none;
   .shadow-1;
 
   h4 {
@@ -263,9 +262,12 @@ nav {
 /* ==========================================================================
 AngularJS
 ========================================================================== */
-.my-fade {
-  -webkit-transition: opacity 0.5s ease-in-out;
-  transition: opacity 0.5s ease-in-out;
+.my-slide, .my-fade {
+  -webkit-transition: 300ms cubic-bezier(0.445, 0.050, 0.550, 0.950) all;
+  -moz-transition: 300ms cubic-bezier(0.445, 0.050, 0.550, 0.950) all;
+  -ms-transition: 300ms cubic-bezier(0.445, 0.050, 0.550, 0.950) all;
+  -o-transition: 300ms cubic-bezier(0.445, 0.050, 0.550, 0.950) all;
+  transition: 300ms cubic-bezier(0.445, 0.050, 0.550, 0.950) all;
 }
 
 .my-fade.ng-hide-add {
@@ -282,6 +284,27 @@ AngularJS
 
 .my-fade.ng-hide-remove.ng-hide-add-active {
   opacity: 1;
+}
+
+.my-slide {
+  overflow-y: hidden;
+}
+
+.my-slide.closed {
+  max-height: 0;
+}
+
+#search-form.my-slide.closed {
+  max-height: 0;
+  margin-top: -@nav-bar-height;
+
+  @media screen and (max-width: 768px) {
+    margin-top: -@nav-bar-height-xs;
+  }
+}
+
+#search-form.my-slide {
+  max-height: 800px;
 }
 
 /* ==========================================================================

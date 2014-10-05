@@ -32,7 +32,7 @@
             <!--fixed-navbar-->
             <nav class="navbar navbar-default navbar-fixed-top">
               <!--match-count-->
-              <div class="col-xs-3 text-capitalize" id="match-count">{{matchCount}} matches</div>
+              <div class="col-xs-3 text-capitalize" id="match-count">{{searchPerformed ? matchCount + " matches" : ""}}</div>
 
               <!--logo-->
               <div id="logo-wrapper" class="col-xs-6">
@@ -41,7 +41,7 @@
               </div>
 
               <!--sort-by-->
-              <form class="col-xs-3 form-horizontal" id="sort-by">
+              <form class="col-xs-3 form-horizontal" id="sort-by" ng-show="searchPerformed">
                 <div class="form-group">
                   <label for="sort-by-select" class="control-label col-sm-5 hidden-xs">Sort by</label>
                   <div class="col-sm-7">
@@ -61,16 +61,16 @@
             </div>
 
             <!--search-form-->
-            <div id="search-form" class="row" ng-controller="SearchFormController">
+            <div id="search-form" class="row my-slide" ng-class="{'closed': !searchFormIsShown}" ng-controller="SearchFormController">
               <form name="searchForm" class="col-xs-10 col-xs-offset-1" novalidate>
                 <div class="row">
-                  <div class="form-group col-xs-12" show-errors="{showSuccess: true}">
+                  <div class="form-group col-xs-12" ng-class="{'has-success': searchForm.wineName.$valid && search.wineName.length, 'has-error': searchForm.wineName.$invalid}">
                     <label class="control-label">Wine Name</label>
                     <input type="text" class="form-control" name="wineName" placeholder="Enter wine name" ng-model="search.wineName">
                   </div>
                 </div>
                 <div class="row">
-                  <div class="form-group col-xs-12">
+                  <div class="form-group col-xs-12" ng-class="{'has-success': searchForm.regionName.$valid && search.regionName.length, 'has-error': searchForm.regionName.$invalid}">
                     <label class="control-label">Region</label>
                     <select id="regions" class="form-control" name="region" ng-model="search.regionName">
                       <option ng-repeat="region in regions">{{region.regionName}}</option>
@@ -78,13 +78,13 @@
                   </div>
                 </div>
                 <div class="row">
-                  <div class="form-group col-xs-12" show-errors="{showSuccess: true}">
+                  <div class="form-group col-xs-12" ng-class="{'has-success': searchForm.wineryName.$valid && search.wineryName.length, 'has-error': searchForm.wineryName.$invalid}">
                     <label class="control-label">Winery Name</label>
                     <input type="text" class="form-control" name="wineryName" placeholder="Enter winery name" ng-model="search.wineryName">
                   </div>
                 </div>
                 <div class="row">
-                  <div class="form-group col-xs-6" show-errors="{showSuccess: true}">
+                  <div class="form-group col-xs-6" ng-class="{'has-success': searchForm.startingYear.$valid && search.startingYear, 'has-error': searchForm.startingYear.$invalid}">
                     <label class="control-label">Starting year</label>
                     <input type="number" class="form-control" name="startingYear" placeholder="Enter starting year" min="1970" max="2014" my-lesser-than-or-equals="endingYear" ng-model="search.startingYear">
                     <h4><span class="help-block" ng-if="searchForm.startingYear.$error.number">Please enter a valid year</span></h4>
@@ -92,7 +92,7 @@
                     <h4><span class="help-block" ng-if="searchForm.startingYear.$error.max">Starting year must be lesser than {{thisYear}}</span></h4>
                     <h4><span class="help-block" ng-if="searchForm.startingYear.$error.myLesserThanOrEquals">Starting year must be lesser than ending year</span></h4>
                   </div>
-                  <div class="form-group col-xs-6" show-errors="{showSuccess: true}">
+                  <div class="form-group col-xs-6" ng-class="{'has-success': searchForm.endingYear.$valid && search.endingYear, 'has-error': searchForm.endingYear.$invalid}">
                     <label class="control-label">Ending year</label>
                     <input type="number" class="form-control" name="endingYear" placeholder="Enter ending year" min="1970" max="{{thisYear}}" my-greater-than-or-equals="startingYear" ng-model="search.endingYear">
                     <h4><span class="help-block" ng-if="searchForm.endingYear.$error.number">Please enter a valid number</span></h4>
@@ -102,14 +102,14 @@
                   </div> 
                 </div>
                 <div class="row">
-                  <div class="form-group col-xs-6" show-errors="{showSuccess: true}">
+                  <div class="form-group col-xs-6" ng-class="{'has-success': searchForm.minCost.$valid && search.minCost, 'has-error': searchForm.minCost.$invalid}">
                     <label class="control-label">Min. price</label>
                     <input type="number" class="form-control" name="minCost" placeholder="Enter min. price" min="0" my-lesser-than-or-equals="maxCost" ng-model="search.minCost">
                     <h4><span class="help-block" ng-if="searchForm.minCost.$error.number">Please enter a valid number</span></h4>
                     <h4><span class="help-block" ng-if="searchForm.minCost.$error.min">Min. price must be greater than zero</span></h4>
                     <h4><span class="help-block" ng-if="searchForm.minCost.$error.myLesserThanOrEquals">Min. price must be lesser than max. price</span></h4>
                   </div>
-                  <div class="form-group col-xs-6" show-errors="{showSuccess: true}">
+                  <div class="form-group col-xs-6" ng-class="{'has-success': searchForm.maxCost.$valid && search.maxCost, 'has-error': searchForm.maxCost.$invalid}">
                     <label class="control-label">Max. price</label>
                     <input type="number" class="form-control" name="maxCost" placeholder="Enter max. price" min="0" my-greater-than-or-equals="minCost" ng-model="search.maxCost">
                     <h4><span class="help-block" ng-if="searchForm.maxCost.$error.number">Please enter a valid number</span></h4>
@@ -118,13 +118,13 @@
                   </div>
                 </div>
                 <div class="row">
-                  <div class="form-group col-xs-6" show-errors="{showSuccess: true}">
+                  <div class="form-group col-xs-6" ng-class="{'has-success': searchForm.minInStock.$valid && search.minInStock, 'has-error': searchForm.minInStock.$invalid}">
                     <label class="control-label">Min. in stock</label>
                     <input type="number" class="form-control" name="minInStock" placeholder="Enter min. in stock" min="0" ng-model="search.minInStock">
                     <h4><span class="help-block" ng-if="searchForm.minInStock.$error.number">Please enter a valid number</span></h4>
                     <h4><span class="help-block" ng-if="searchForm.minInStock.$error.min">Min. in stock must be greater than zero</span></h4>
                   </div>
-                  <div class="form-group col-xs-6" show-errors="{showSuccess: true}">
+                  <div class="form-group col-xs-6" ng-class="{'has-success': searchForm.minPurchases.$valid && search.minPurchases, 'has-error': searchForm.minPurchases.$invalid}">
                     <label class="control-label">Min. purchases</label>
                     <input type="number" class="form-control" name="minPurchases" placeholder="Enter min. purchases" min="0" ng-model="search.minPurchases">
                     <h4><span class="help-block" ng-if="searchForm.minPurchases.$error.number">Please enter a valid number</span></h4>
@@ -185,10 +185,10 @@
 
             <!--search--messages-->
             <div id="search-messages" class="row text-uppercase" ng-hide="searchFormIsShown || (searchPerformed && matchCount !== 0)">
-              <div class="col-xs-12" ng-hide="loading" ng-show="searchPerformed && matchCount === 0">
+              <div class="col-xs-12" ng-show="searchPerformed && matchCount === 0 && !loading">
                 <h1><small>Oops! No matches were found...<br><span class="glyphicon glyphicon-exclamation-sign"></span></small></h1>
               </div>
-              <div class="col-xs-12" ng-hide="searchPerformed || loading">
+              <div class="col-xs-12" ng-show="!searchPerformed && !loading">
                 <h1><small>Start searching!<br><span class="glyphicon glyphicon-search"></span></small></h1>
               </div>
               <div class="col-xs-12" ng-show="loading">

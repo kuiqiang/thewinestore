@@ -11,16 +11,14 @@ $minCost = filter_input(INPUT_GET, 'minCost', FILTER_VALIDATE_FLOAT);
 $maxCost = filter_input(INPUT_GET, 'maxCost', FILTER_VALIDATE_FLOAT);
 $minInStock = filter_input(INPUT_GET, 'minInStock', FILTER_VALIDATE_INT);
 $minPurchases = filter_input(INPUT_GET, 'minPurchases', FILTER_VALIDATE_INT);
-$whereClause = "WHERE wine.wine_name LIKE \"%" . $wineName . "%\"";
 
+$whereClause = "WHERE wine.wine_name LIKE \"%" . $wineName . "%\"";
 if ($regionName !== "" && $regionName !== "All") {
   $whereClause .= " AND region.region_name = \"" . $regionName . "\"";
 }
-
 if ($wineryName !== "") {
   $whereClause .= " AND winery.winery_name LIKE \"%" . $wineryName . "%\"";
 }
-
 if ($startingYear && !$endingYear) {
   $whereClause .= " AND wine.`year` >=" . $startingYear;
 } else if (!$startingYear && $endingYear) {
@@ -28,15 +26,13 @@ if ($startingYear && !$endingYear) {
 } else if ($startingYear && $endingYear && $startingYear <= $endingYear) {
   $whereClause .= " AND wine.`year` BETWEEN " . $startingYear . " AND " . $endingYear;
 }
-
 if ($minCost && !$maxCost) {
   $whereClause .= " AND inventory.cost >=" . $minCost;
-} else if (!$startingYear && $endingYear) {
+} else if (!$minCost && $maxCost) {
   $whereClause .= " AND inventory.cost <= " . $maxCost;
 } else if ($minCost && $maxCost && $minCost <= $maxCost) {
   $whereClause .= " AND inventory.cost BETWEEN " . $minCost . " AND " . $maxCost;
 }
-
 if ($minInStock) {
   $whereClause .= " AND inventory.on_hand >= " . $minInStock;
 }
