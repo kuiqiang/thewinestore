@@ -1,9 +1,9 @@
 'use strict';
 
 (function () {
-  var wineStoreApp = angular.module('wineStoreApp', []);
+  var wineStoreApp = angular.module('wineStoreApp', ['ngAnimate']);
 
-  wineStoreApp.controller('AppController', function ($scope, $http, $filter) {
+  wineStoreApp.controller('AppController', function ($scope, $http, $timeout) {
     /* Search form */
     $scope.searchFormIsShown = false;
     $scope.searchPerformed = false;
@@ -41,15 +41,19 @@
     /* Results */
     $scope.wines = {};
     $scope.matchCount = 0;
+    $scope.loading = false;
 
     $scope.getWines = function () {
+      $scope.loading = true;
       $http.get('/assignment-1/public_html/php/getWines.php', {params: $scope.search}).success(function (wines) {
         $scope.wines = wines;
         $scope.searchPerformed = true;
+        $scope.loading = false;
         if (typeof $scope.wines === "object")
-          $scope.matchCount = Object.keys($scope.wines).length;
+          $scope.matchCount = Object.keys($scope.wines).length;       
       }).error(function (wines, status) {
         console.log(status);
+        $scope.loading = false;
       });
     };
 
@@ -62,7 +66,15 @@
       {option: "region", name: "Region"},
       {option: "price", name: "Price"},
       {option: "inStock", name: "In stock"},
-      {option: "numberOfPurchases", name: "No. of purchases"}
+      {option: "numberOfPurchases", name: "No. of purchases"},
+      {option: "-wineName", name: "Wine name (desc)"},
+      {option: "-varieties", name: "Varieties (desc)"},
+      {option: "-year", name: "Year (desc)"},
+      {option: "-winery", name: "Winery (desc)"},
+      {option: "-region", name: "Region (desc)"},
+      {option: "-price", name: "Price (desc)"},
+      {option: "-inStock", name: "In stock (desc)"},
+      {option: "-numberOfPurchases", name: "No. of purchases (desc)"}
     ];
     $scope.currentSortOption = $scope.sortOptions[0];
   });

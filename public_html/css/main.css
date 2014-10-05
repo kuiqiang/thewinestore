@@ -204,9 +204,54 @@ nav {
   display: block;
   margin-top: 197.5px;
 }
+.spinner {
+  width: 40px;
+  height: 40px;
+  margin: 15px auto;
+  background-color: #333;
+  border-radius: 100%;
+  -webkit-animation: scaleout 1s infinite ease-in-out;
+  animation: scaleout 1s infinite ease-in-out;
+}
+@-webkit-keyframes scaleout {
+  0% {
+    -webkit-transform: scale(0);
+  }
+  100% {
+    -webkit-transform: scale(1);
+    opacity: 0;
+  }
+}
+@keyframes scaleout {
+  0% {
+    transform: scale(0);
+    -webkit-transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+    -webkit-transform: scale(1);
+    opacity: 0;
+  }
+}
 /* ==========================================================================
 AngularJS
 ========================================================================== */
+.my-fade {
+  -webkit-transition: opacity 0.5s ease-in-out;
+  transition: opacity 0.5s ease-in-out;
+}
+.my-fade.ng-hide-add {
+  opacity: 1;
+}
+.my-fade.ng-hide-add.ng-hide-add-active {
+  opacity: 0;
+}
+.my-fade.ng-hide-remove {
+  opacity: 0;
+}
+.my-fade.ng-hide-remove.ng-hide-add-active {
+  opacity: 1;
+}
 /* ==========================================================================
 Media Queries
 ========================================================================== */
