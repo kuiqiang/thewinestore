@@ -11,34 +11,30 @@ $minCost = filter_input(INPUT_GET, 'minCost', FILTER_VALIDATE_FLOAT);
 $maxCost = filter_input(INPUT_GET, 'maxCost', FILTER_VALIDATE_FLOAT);
 $minInStock = filter_input(INPUT_GET, 'minInStock', FILTER_VALIDATE_INT);
 $minPurchases = filter_input(INPUT_GET, 'minPurchases', FILTER_VALIDATE_INT);
+
 $whereClause = "WHERE wine.wine_name LIKE \"%" . $wineName . "%\"";
-
 if ($regionName !== "" && $regionName !== "All") {
-  $whereClause .= " AND region.region_name = \"" . $regionName . "\"";
+    $whereClause .= " AND region.region_name = \"" . $regionName . "\"";
 }
-
 if ($wineryName !== "") {
-  $whereClause .= " AND winery.winery_name LIKE \"%" . $wineryName . "%\"";
+    $whereClause .= " AND winery.winery_name LIKE \"%" . $wineryName . "%\"";
 }
-
 if ($startingYear && !$endingYear) {
-  $whereClause .= " AND wine.`year` >=" . $startingYear;
+    $whereClause .= " AND wine.`year` >=" . $startingYear;
 } else if (!$startingYear && $endingYear) {
-  $whereClause .= " AND wine.`year` <= " . $endingYear;
+    $whereClause .= " AND wine.`year` <= " . $endingYear;
 } else if ($startingYear && $endingYear && $startingYear <= $endingYear) {
-  $whereClause .= " AND wine.`year` BETWEEN " . $startingYear . " AND " . $endingYear;
+    $whereClause .= " AND wine.`year` BETWEEN " . $startingYear . " AND " . $endingYear;
 }
-
 if ($minCost && !$maxCost) {
-  $whereClause .= " AND inventory.cost >=" . $minCost;
-} else if (!$startingYear && $endingYear) {
-  $whereClause .= " AND inventory.cost <= " . $maxCost;
+    $whereClause .= " AND inventory.cost >=" . $minCost;
+} else if (!$minCost && $maxCost) {
+    $whereClause .= " AND inventory.cost <= " . $maxCost;
 } else if ($minCost && $maxCost && $minCost <= $maxCost) {
-  $whereClause .= " AND inventory.cost BETWEEN " . $minCost . " AND " . $maxCost;
+    $whereClause .= " AND inventory.cost BETWEEN " . $minCost . " AND " . $maxCost;
 }
-
 if ($minInStock) {
-  $whereClause .= " AND inventory.on_hand >= " . $minInStock;
+    $whereClause .= " AND inventory.on_hand >= " . $minInStock;
 }
 
 $query = "SELECT
@@ -69,7 +65,7 @@ GROUP BY
 
 
 if ($minPurchases) {
-  $query .= " HAVING COUNT(items.order_id) >= " . $minPurchases . " ORDER BY wine.wine_name ASC";
+    $query .= " HAVING COUNT(items.order_id) >= " . $minPurchases . " ORDER BY wine.wine_name ASC";
 }
 
 $result = $mysqli->query($query) or die($mysqli->error . __LINE__);
