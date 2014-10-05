@@ -27,6 +27,7 @@
     $scope.getRegions = function () {
       $http.get('/assignment-1/public_html/php/getRegions.php').success(function (regions) {
         $scope.regions = regions;
+        $scope.search.regionName = $scope.regions[0].regionName;
       }).error(function (regions, status) {
         console.log(status);
       });
@@ -40,14 +41,19 @@
     $scope.loading = false;
 
     $scope.getWines = function () {
+      $scope.toggleSearchForm();
+      $scope.searchPerformed = false;
       $scope.loading = true;
+
       $http.get('/assignment-1/public_html/php/getWines.php', {params: $scope.search}).success(function (wines) {
         wines.forEach(function (wine) {
           wine.price = parseFloat(wine.price);
         });
+
         $scope.wines = wines;
         $scope.searchPerformed = true;
         $scope.loading = false;
+
         if (typeof $scope.wines === "object")
           $scope.matchCount = Object.keys($scope.wines).length;
       }).error(function (wines, status) {

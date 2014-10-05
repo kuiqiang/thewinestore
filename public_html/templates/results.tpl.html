@@ -11,12 +11,12 @@
       <meta name="description" content="">
       <meta name="viewport" content="width=device-width, initial-scale=1">
 
-      <link rel="stylesheet" href="css/normalize.min.css">
-      <link rel="stylesheet" href="css/main.css">
-      <link rel="stylesheet" href="css/bootstrap.min.css">
+      <link rel="stylesheet" href="../css/normalize.min.css">
+      <link rel="stylesheet" href="../css/main.css">
+      <link rel="stylesheet" href="../css/bootstrap.min.css">
       <link href='http://fonts.googleapis.com/css?family=IM+Fell+DW+Pica' rel='stylesheet' type='text/css'>
 
-      <script src="js/vendor/modernizr-2.6.2.min.js"></script>
+      <script src="../js/vendor/modernizr-2.6.2.min.js"></script>
     </head>
     <body>
       <!--[if lt IE 7]>
@@ -33,11 +33,13 @@
             <nav class="navbar navbar-default navbar-fixed-top">
               <!--match-count-->
               <!--PEAR IT-->
-              <div class="col-xs-3 text-capitalize" id="match-count"></div>
+              <!-- BEGIN MATCH_COUNT -->
+              <div class="col-xs-3 text-capitalize" id="match-count">{MATCH_COUNT}</div>
+              <!-- END MATCH_COUNT -->
 
               <!--logo-->
               <div id="logo-wrapper" class="col-xs-6">
-                <img id="logo-image" src="img/logo.png" alt="The Winestore" />
+                <img id="logo-image" src="../img/logo.png" alt="The Winestore" />
                 <h5 class="store-title text-uppercase hidden-xs">The Winestore</h5>
               </div>
             </nav>
@@ -53,7 +55,7 @@
 
             <!--search-form-->
             <div id="search-form" class="row my-slide" ng-class="{'closed': !searchFormIsShown}" ng-controller="SearchFormController">
-              <form name="searchForm" method="get" action="php/getWines.php" class="col-xs-10 col-xs-offset-1" novalidate>
+              <form name="searchForm" method="get" action="../php/getWines.php" class="col-xs-10 col-xs-offset-1" novalidate>
                 <div class="row">
                   <div class="form-group col-xs-12" ng-class="{'has-success': searchForm.wineName.$valid && search.wineName.length, 'has-error': searchForm.wineName.$invalid}">
                     <label class="control-label">Wine Name</label>
@@ -128,28 +130,69 @@
               </form>
             </div>
 
-            <!--search--messages-->
-            <div id="search-messages" class="row text-uppercase" ng-hide="searchFormIsShown || (searchPerformed && matchCount !== 0)">
-              <div class="col-xs-12" ng-show="searchPerformed && matchCount === 0 && !loading">
-                <h1><small>Oops! No matches were found...<br><span class="glyphicon glyphicon-exclamation-sign"></span></small></h1>
-              </div>
-              <div class="col-xs-12" ng-show="!(searchPerformed || loading)">
-                <h1><small>Start searching!<br><span class="glyphicon glyphicon-search"></span></small></h1>
-              </div>
-              <div class="col-xs-12" ng-show="loading">
-                <h1><small>Rolling our search engines...</small><div class="spinner"></div></h1>
+            <!--search-results-->
+            <!--PEAR IT-->
+            <div class="row my-fade" ng-hide="searchFormIsShown || !(searchPerformed && matchCount !== 0)">
+              <div class="col-xs-10 col-xs-offset-1">
+                <table id="search-results" class="table">
+                  <tbody>
+                    <tr>
+                      <td colspan="2"><h2>Search results</h2></td>
+                    </tr>
+                  </tbody>
+                  <!-- BEGIN WINE -->
+                  <tbody class="dot-separated">
+                    <tr>
+                      <td colspan="2"><h3>{WINE_NAME}<small> | {INDEX}</small></h3></td>
+                    <tr>
+                      <td>Varieties</td>
+                      <td>{VARIETIES}</td>
+                    </tr>
+                    <tr>
+                      <td>Year</td>
+                      <td>{YEAR}</td>
+                    </tr>
+                    <tr>
+                      <td>Winery</td>
+                      <td>{WINERY}</td>
+                    </tr>
+                    <tr>
+                      <td>Region</td>
+                      <td>{REGION}</td>
+                    </tr>
+                    <tr>
+                      <td>Price</td>
+                      <td>{PRICE}</td>
+                    </tr>
+                    <tr>
+                      <td>In stock</td>
+                      <td>{IN_STOCK}</td>
+                    </tr>
+                    <tr>
+                      <td>No. of purchases</td>
+                      <td>{NO_OF_PURCHASES}</td>
+                    </tr>
+                  </tbody>
+                  <!-- END WINE -->
+                </table> 
               </div>
             </div>
+
+            <!--search--messages-->
+            <!--PEAR IT-->
+            <!-- BEGIN MESSAGE -->
+            {MESSAGE}
+            <!-- END MESSAGE -->
           </main>
         </div>
       </div>
 
       <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-      <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.1.min.js"><\/script>')</script>
+      <script>window.jQuery || document.write('<script src="../js/vendor/jquery-1.11.1.min.js"><\/script>')</script>
       <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
       <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular-animate.min.js"></script>
 
-      <script src="js/main.js"></script>
+      <script src="../js/main.js"></script>
 
       <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
       <script>

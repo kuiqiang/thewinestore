@@ -1,5 +1,6 @@
 <?php
 
+require_once "C:/Program Files/wamp/bin/php/php5.5.12/pear/IT.php";
 require_once 'includes/config.php';
 
 $wineName = filter_input(INPUT_GET, 'wineName', FILTER_SANITIZE_STRING);
@@ -70,4 +71,38 @@ if ($minPurchases) {
 
 $result = $mysqli->query($query) or die($mysqli->error . __LINE__);
 
-echo json_encode($result->fetch_all(MYSQLI_ASSOC));
+// PEAR IT
+$template = new HTML_Template_IT("../templates");
+
+$template->loadTemplatefile("results.tpl.html", true, true);
+$index = 1;
+
+print_r($result);
+
+print_r($query);
+
+$template->setCurrentBlock("MATCH_COUNT");
+$template->setVariable("MATCH_COUNT", $result->num_rows . ($result->num_rows !== 1 ? " matches" : " match"));
+$template->parseCurrentBlock();
+
+$template->setCurrentBlock("WINE");
+while ($wine = $result->fetch_assoc()) {
+  $template->setVariable("WINE_NAME", $wine["wineName"]);
+  $template->setVariable("INDEX", $index++);
+  $template->setVariable("VARIETIES", $wine["varieties"]);
+  $template->setVariable("YEAR", $wine["year"]);
+  $template->setVariable("WINERY", $wine["winery"]);
+  $template->setVariable("REGION", $wine["region"]);
+  $template->setVariable("PRICE", $wine["price"]);
+  $template->setVariable("IN_STOCK", $wine["inStock"]);
+  $template->setVariable("NO_OF_PURCHASES", $wine["numberOfPurchases"]);
+  $template->parseCurrentBlock();
+}
+
+if (($index - 1) === 0) {
+  $template->setCurrentBlock("MESSAGE");
+  $template->setVariable("MESSAGE", '<div id="search-messages" class="row text-uppercase"><div class="col-xs-12"><h1><small>Oops! No matches were found...<br><span class="glyphicon glyphicon-exclamation-sign"></span></small></h1></div></div>');
+  $template->parseCurrentBlock();
+}
+
+$template->show();
