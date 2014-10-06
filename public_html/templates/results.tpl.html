@@ -65,8 +65,9 @@
                 <div class="row">
                   <div class="form-group col-xs-12">
                     <label class="control-label">Region</label>
+                    <!--PEAR-IT-->
                     <select id="regions" class="form-control" name="regionName" ng-model="search.regionName">
-                      <option ng-repeat="region in regions" value="{{region.regionName}}">{{region.regionName}}</option>
+                      <option ng-repeat="region in regions" ng-value="region.regionName">[[region.regionName]]</option>
                     </select>
                   </div>
                 </div>
@@ -79,18 +80,18 @@
                 <div class="row">
                   <div class="form-group col-xs-6" ng-class="{'has-success': searchForm.startingYear.$valid && search.startingYear, 'has-error': searchForm.startingYear.$invalid}">
                     <label class="control-label">Starting year</label>
-                    <input type="number" class="form-control" name="startingYear" placeholder="Enter starting year" min="1970" max="2014" my-lesser-than-or-equals="endingYear" ng-model="search.startingYear">
+                    <input type="number" class="form-control" name="startingYear" placeholder="Enter starting year" min="1970" max="[[thisYear]]" my-lesser-than-or-equals="endingYear" ng-model="search.startingYear">
                     <h4><span class="help-block" ng-if="searchForm.startingYear.$error.number">Please enter a valid year</span></h4>
                     <h4><span class="help-block" ng-if="searchForm.startingYear.$error.min">Starting year must start from 1970</span></h4>
-                    <h4><span class="help-block" ng-if="searchForm.startingYear.$error.max">Starting year must be lesser than {{thisYear}}</span></h4>
+                    <h4><span class="help-block" ng-if="searchForm.startingYear.$error.max">Starting year must be lesser than [[thisYear]]</span></h4>
                     <h4><span class="help-block" ng-if="searchForm.startingYear.$error.myLesserThanOrEquals">Starting year must be lesser than ending year</span></h4>
                   </div>
                   <div class="form-group col-xs-6" ng-class="{'has-success': searchForm.endingYear.$valid && search.endingYear, 'has-error': searchForm.endingYear.$invalid}">
                     <label class="control-label">Ending year</label>
-                    <input type="number" class="form-control" name="endingYear" placeholder="Enter ending year" min="1970" max="{{thisYear}}" my-greater-than-or-equals="startingYear" ng-model="search.endingYear">
+                    <input type="number" class="form-control" name="endingYear" placeholder="Enter ending year" min="1970" max="[[thisYear]]" my-greater-than-or-equals="startingYear" ng-model="search.endingYear">
                     <h4><span class="help-block" ng-if="searchForm.endingYear.$error.number">Please enter a valid number</span></h4>
                     <h4><span class="help-block" ng-if="searchForm.endingYear.$error.min">Ending year must start from 1970</span></h4>
-                    <h4><span class="help-block" ng-if="searchForm.endingYear.$error.max">Ending year must be lesser than {{thisYear}}</span></h4>
+                    <h4><span class="help-block" ng-if="searchForm.endingYear.$error.max">Ending year must be lesser than [[thisYear]]</span></h4>
                     <h4><span class="help-block" ng-if="searchForm.endingYear.$error.myGreaterThanOrEquals">Ending year must be greater than starting year</span></h4>
                   </div> 
                 </div>
@@ -132,15 +133,11 @@
 
             <!--search-results-->
             <!--PEAR IT-->
-            <div class="row my-fade" ng-hide="searchFormIsShown || !(searchPerformed && matchCount !== 0)">
+            <div class="row my-fade" ng-hide="searchFormIsShown || loading">
               <div class="col-xs-10 col-xs-offset-1">
                 <table id="search-results" class="table">
-                  <tbody>
-                    <tr>
-                      <td colspan="2"><h2>Search results</h2></td>
-                    </tr>
-                  </tbody>
                   <!-- BEGIN WINE -->
+                  {TITLE}                  
                   <tbody class="dot-separated">
                     <tr>
                       <td colspan="2"><h3>{WINE_NAME}<small> | {INDEX}</small></h3></td>
@@ -196,19 +193,20 @@
 
       <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
       <script>
-                (function (b, o, i, l, e, r) {
-                  b.GoogleAnalyticsObject = l;
-                  b[l] || (b[l] =
-                          function () {
-                            (b[l].q = b[l].q || []).push(arguments)
-                          });
-                  b[l].l = +new Date;
-                  e = o.createElement(i);
-                  r = o.getElementsByTagName(i)[0];
-                  e.src = '//www.google-analytics.com/analytics.js';
-                  r.parentNode.insertBefore(e, r)
-                }(window, document, 'script', 'ga'));
-                ga('create', 'UA-XXXXX-X');
-                ga('send', 'pageview');</script>
+                      (function (b, o, i, l, e, r) {
+                      b.GoogleAnalyticsObject = l;
+                              b[l] || (b[l] =
+                              function () {
+                              (b[l].q = b[l].q || []).push(arguments)
+                              });
+                              b[l].l = + new Date;
+                              e = o.createElement(i);
+                              r = o.getElementsByTagName(i)[0];
+                              e.src = '//www.google-analytics.com/analytics.js';
+                              r.parentNode.insertBefore(e, r)
+                      }(window, document, 'script', 'ga'));
+                      ga('create', 'UA-XXXXX-X');
+                      ga('send', 'pageview');
+      </script>
     </body>
   </html>

@@ -63,8 +63,9 @@
                 <div class="row">
                   <div class="form-group col-xs-12">
                     <label class="control-label">Region</label>
+                    <!--PEAR-IT-->
                     <select id="regions" class="form-control" name="regionName" ng-model="search.regionName">
-                      <option ng-repeat="region in regions" value="{{region.regionName}}">{{region.regionName}}</option>
+                      <option ng-repeat="region in regions" value="[[region.regionName]]">[[region.regionName]]</option>
                     </select>
                   </div>
                 </div>
@@ -77,18 +78,18 @@
                 <div class="row">
                   <div class="form-group col-xs-6" ng-class="{'has-success': searchForm.startingYear.$valid && search.startingYear, 'has-error': searchForm.startingYear.$invalid}">
                     <label class="control-label">Starting year</label>
-                    <input type="number" class="form-control" name="startingYear" placeholder="Enter starting year" min="1970" max="2014" my-lesser-than-or-equals="endingYear" ng-model="search.startingYear">
+                    <input type="number" class="form-control" name="startingYear" placeholder="Enter starting year" min="1970" max="[[thisYear]]" my-lesser-than-or-equals="endingYear" ng-model="search.startingYear">
                     <h4><span class="help-block" ng-if="searchForm.startingYear.$error.number">Please enter a valid year</span></h4>
                     <h4><span class="help-block" ng-if="searchForm.startingYear.$error.min">Starting year must start from 1970</span></h4>
-                    <h4><span class="help-block" ng-if="searchForm.startingYear.$error.max">Starting year must be lesser than {{thisYear}}</span></h4>
+                    <h4><span class="help-block" ng-if="searchForm.startingYear.$error.max">Starting year must be lesser than [[thisYear]]</span></h4>
                     <h4><span class="help-block" ng-if="searchForm.startingYear.$error.myLesserThanOrEquals">Starting year must be lesser than ending year</span></h4>
                   </div>
                   <div class="form-group col-xs-6" ng-class="{'has-success': searchForm.endingYear.$valid && search.endingYear, 'has-error': searchForm.endingYear.$invalid}">
                     <label class="control-label">Ending year</label>
-                    <input type="number" class="form-control" name="endingYear" placeholder="Enter ending year" min="1970" max="{{thisYear}}" my-greater-than-or-equals="startingYear" ng-model="search.endingYear">
+                    <input type="number" class="form-control" name="endingYear" placeholder="Enter ending year" min="1970" max="[[thisYear]]" my-greater-than-or-equals="startingYear" ng-model="search.endingYear">
                     <h4><span class="help-block" ng-if="searchForm.endingYear.$error.number">Please enter a valid number</span></h4>
                     <h4><span class="help-block" ng-if="searchForm.endingYear.$error.min">Ending year must start from 1970</span></h4>
-                    <h4><span class="help-block" ng-if="searchForm.endingYear.$error.max">Ending year must be lesser than {{thisYear}}</span></h4>
+                    <h4><span class="help-block" ng-if="searchForm.endingYear.$error.max">Ending year must be lesser than [[thisYear]]</span></h4>
                     <h4><span class="help-block" ng-if="searchForm.endingYear.$error.myGreaterThanOrEquals">Ending year must be greater than starting year</span></h4>
                   </div> 
                 </div>
@@ -129,15 +130,9 @@
             </div>
 
             <!--search--messages-->
-            <div id="search-messages" class="row text-uppercase" ng-hide="searchFormIsShown || (searchPerformed && matchCount !== 0)">
-              <div class="col-xs-12" ng-show="searchPerformed && matchCount === 0 && !loading">
-                <h1><small>Oops! No matches were found...<br><span class="glyphicon glyphicon-exclamation-sign"></span></small></h1>
-              </div>
-              <div class="col-xs-12" ng-show="!(searchPerformed || loading)">
+            <div id="search-messages" class="row text-uppercase" ng-hide="searchFormIsShown">
+              <div class="col-xs-12">
                 <h1><small>Start searching!<br><span class="glyphicon glyphicon-search"></span></small></h1>
-              </div>
-              <div class="col-xs-12" ng-show="loading">
-                <h1><small>Rolling our search engines...</small><div class="spinner"></div></h1>
               </div>
             </div>
           </main>

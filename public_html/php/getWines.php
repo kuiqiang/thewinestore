@@ -77,15 +77,14 @@ $template = new HTML_Template_IT("../templates");
 $template->loadTemplatefile("results.tpl.html", true, true);
 $index = 1;
 
-print_r($result);
-
-print_r($query);
-
 $template->setCurrentBlock("MATCH_COUNT");
 $template->setVariable("MATCH_COUNT", $result->num_rows . ($result->num_rows !== 1 ? " matches" : " match"));
 $template->parseCurrentBlock();
 
 $template->setCurrentBlock("WINE");
+if ($result->num_rows > 0) {
+  $template->setVariable("TITLE", '<tbody><tr><td colspan="2"><h2>Search results</h2></td></tr></tboy>');
+}
 while ($wine = $result->fetch_assoc()) {
   $template->setVariable("WINE_NAME", $wine["wineName"]);
   $template->setVariable("INDEX", $index++);
@@ -99,9 +98,17 @@ while ($wine = $result->fetch_assoc()) {
   $template->parseCurrentBlock();
 }
 
-if (($index - 1) === 0) {
+if ($result->num_rows === 0) {
   $template->setCurrentBlock("MESSAGE");
-  $template->setVariable("MESSAGE", '<div id="search-messages" class="row text-uppercase"><div class="col-xs-12"><h1><small>Oops! No matches were found...<br><span class="glyphicon glyphicon-exclamation-sign"></span></small></h1></div></div>');
+  $template->setVariable("MESSAGE", '<div id="search-messages" class="row text-uppercase">'
+          . '<div class="col-xs-12"><h1><small>Oops! No matches were found...<br>'
+          . '<span class="glyphicon glyphicon-exclamation-sign"></span></small></h1></div></div>');
+  $template->parseCurrentBlock();
+} else {
+  $template->setCurrentBlock("MESSAGE");
+  $template->setVariable("MESSAGE", '<div id="search-messages" class="row text-uppercase">
+            <div class="col-xs-12" ng-show="loading">
+            <h1><small>Rolling our search engines...</small><div class="spinner"></div></h1></div></div>');
   $template->parseCurrentBlock();
 }
 
