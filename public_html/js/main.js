@@ -42,7 +42,7 @@
     $scope.loading = true;
     $timeout(function () {
       $scope.loading = false;
-    }, 300);
+    }, 500);
   });
 
   wineStoreApp.controller('SearchFormController', function ($scope) {

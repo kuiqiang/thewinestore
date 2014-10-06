@@ -83,32 +83,32 @@ $template->setVariable("MATCH_COUNT", $result->numRows() . ($result->numRows() !
 $template->parseCurrentBlock();
 
 $template->setCurrentBlock("WINE");
-if (count($result->numRows()) > 0) {
+if ($result->numRows() > 0) {
   $template->setVariable("TITLE", '<tbody><tr><td colspan="2"><h2>Search results</h2></td></tr></tboy>');
-}
-while ($wine = $result->fetchRow()) {
-  $template->setVariable("WINE_NAME", $wine["wineName"]);
-  $template->setVariable("INDEX", $index++);
-  $template->setVariable("VARIETIES", $wine["varieties"]);
-  $template->setVariable("YEAR", $wine["year"]);
-  $template->setVariable("WINERY", $wine["winery"]);
-  $template->setVariable("REGION", $wine["region"]);
-  $template->setVariable("PRICE", '$' . $wine["price"]);
-  $template->setVariable("IN_STOCK", $wine["inStock"]);
-  $template->setVariable("NO_OF_PURCHASES", $wine["numberOfPurchases"]);
-  $template->parseCurrentBlock();
+  while ($wine = $result->fetchRow()) {
+    $template->setVariable("WINE_NAME", $wine["wineName"]);
+    $template->setVariable("INDEX", $index++);
+    $template->setVariable("VARIETIES", $wine["varieties"]);
+    $template->setVariable("YEAR", $wine["year"]);
+    $template->setVariable("WINERY", $wine["winery"]);
+    $template->setVariable("REGION", $wine["region"]);
+    $template->setVariable("PRICE", '$' . $wine["price"]);
+    $template->setVariable("IN_STOCK", $wine["inStock"]);
+    $template->setVariable("NO_OF_PURCHASES", $wine["numberOfPurchases"]);
+    $template->parseCurrentBlock();
+  }
 }
 
-if ($result->num_rows === 0) {
+if ($result->numRows() === 0) {
   $template->setCurrentBlock("MESSAGE");
-  $template->setVariable("MESSAGE", '<div id="search-messages" class="row text-uppercase">'
+  $template->setVariable("MESSAGE", '<div id="search-messages" class="row text-uppercase" ng-hide="searchFormIsShown">'
           . '<div class="col-xs-12"><h1><small>Oops! No matches were found...<br>'
           . '<span class="glyphicon glyphicon-exclamation-sign"></span></small></h1></div></div>');
   $template->parseCurrentBlock();
 } else {
   $template->setCurrentBlock("MESSAGE");
-  $template->setVariable("MESSAGE", '<div id="search-messages" class="row text-uppercase">
-            <div class="col-xs-12" ng-show="loading">
+  $template->setVariable("MESSAGE", '<div id="search-messages" class="row text-uppercase" ng-show="loading" ng-hide="searchFormIsShown">
+            <div class="col-xs-12">
             <h1><small>Rolling our search engines...</small><div class="spinner"></div></h1></div></div>');
   $template->parseCurrentBlock();
 }
