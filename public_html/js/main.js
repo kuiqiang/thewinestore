@@ -11,6 +11,7 @@
   wineStoreApp.controller('AppController', function ($scope, $http, $timeout) {
     /* Search form */
     $scope.searchFormIsShown = false;
+    $scope.thisYear = new Date().getFullYear();
     $scope.regions;
     $scope.search = {
       wineName: "",
@@ -43,10 +44,6 @@
     $timeout(function () {
       $scope.loading = false;
     }, 500);
-  });
-
-  wineStoreApp.controller('SearchFormController', function ($scope) {
-    $scope.thisYear = new Date().getFullYear();
   });
 
   wineStoreApp.directive('myLesserThanOrEquals', function () {

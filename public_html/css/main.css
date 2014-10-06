@@ -76,7 +76,7 @@ nav {
   -moz-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.258824);
   box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.258824);
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 767px) {
   nav {
     height: 75px;
   }
@@ -138,7 +138,7 @@ nav {
 #search-btn span {
   vertical-align: middle;
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 767px) {
   #search-btn {
     margin-top: 76px;
   }
@@ -163,7 +163,7 @@ nav {
 #search-form .has-error .help-block {
   display: inline;
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 767px) {
   #search-form {
     margin-top: 75px;
   }
@@ -265,7 +265,7 @@ AngularJS
   max-height: 0;
   margin-top: -97.5px;
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 767px) {
   #search-form.my-slide.closed {
     margin-top: -75px;
   }
