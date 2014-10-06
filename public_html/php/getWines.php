@@ -70,7 +70,7 @@ if ($minPurchases) {
 }
 
 // PEAR DB
-$result = $connection->query($query) or die($connection->getMessage());
+$result = $db->query($query);
 
 // PEAR IT
 $template = new HTML_Template_IT("../templates");
@@ -79,21 +79,21 @@ $template->loadTemplatefile("results.tpl.html", true, true);
 $index = 1;
 
 $template->setCurrentBlock("MATCH_COUNT");
-$template->setVariable("MATCH_COUNT", $result->num_rows . ($result->num_rows !== 1 ? " matches" : " match"));
+$template->setVariable("MATCH_COUNT", $result->numRows() . ($result->numRows() !== 1 ? " matches" : " match"));
 $template->parseCurrentBlock();
 
 $template->setCurrentBlock("WINE");
-if ($result->num_rows > 0) {
+if (count($result->numRows()) > 0) {
   $template->setVariable("TITLE", '<tbody><tr><td colspan="2"><h2>Search results</h2></td></tr></tboy>');
 }
-while ($wine = $result->fetch_assoc()) {
+while ($wine = $result->fetchRow()) {
   $template->setVariable("WINE_NAME", $wine["wineName"]);
   $template->setVariable("INDEX", $index++);
   $template->setVariable("VARIETIES", $wine["varieties"]);
   $template->setVariable("YEAR", $wine["year"]);
   $template->setVariable("WINERY", $wine["winery"]);
   $template->setVariable("REGION", $wine["region"]);
-  $template->setVariable("PRICE", $wine["price"]);
+  $template->setVariable("PRICE", '$' . $wine["price"]);
   $template->setVariable("IN_STOCK", $wine["inStock"]);
   $template->setVariable("NO_OF_PURCHASES", $wine["numberOfPurchases"]);
   $template->parseCurrentBlock();

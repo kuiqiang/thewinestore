@@ -8,6 +8,6 @@ FROM
 	region";
 
 // PEAR DB
-$result = $connection->query($query) or die($connection->getMessage());
+$result = $db->getAll($query);
 
-echo json_encode($result->fetch_all(MYSQLI_ASSOC));
+echo json_encode($result);
