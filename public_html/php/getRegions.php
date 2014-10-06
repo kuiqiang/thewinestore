@@ -7,6 +7,7 @@ $query = "SELECT
 FROM
 	region";
 
-$result = $mysqli->query($query) or die($mysqli->error . __LINE__);
+// PEAR DB
+$result = $connection->query($query) or die($connection->getMessage());
 
 echo json_encode($result->fetch_all(MYSQLI_ASSOC));

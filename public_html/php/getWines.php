@@ -69,7 +69,8 @@ if ($minPurchases) {
   $query .= " HAVING COUNT(items.order_id) >= " . $minPurchases . " ORDER BY wine.wine_name ASC";
 }
 
-$result = $mysqli->query($query) or die($mysqli->error . __LINE__);
+// PEAR DB
+$result = $connection->query($query) or die($connection->getMessage());
 
 // PEAR IT
 $template = new HTML_Template_IT("../templates");
